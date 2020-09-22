@@ -130,6 +130,41 @@
           }
         }
       }
+    },
+    "ec-shared": {
+      "root": "projects/ec-shared",
+      "sourceRoot": "projects/ec-shared/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ec-shared/tsconfig.lib.json",
+            "project": "projects/ec-shared/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ec-shared/src/test.ts",
+            "tsConfig": "projects/ec-shared/tsconfig.spec.json",
+            "karmaConfig": "projects/ec-shared/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ec-shared/tsconfig.lib.json",
+              "projects/ec-shared/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "amazon"
