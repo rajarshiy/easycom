@@ -23,7 +23,7 @@
               "projects/amazon/src/assets"
             ],
             "styles": [
-              "projects/amazon/src/styles.css"
+              "projects/amazon/src/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -165,7 +165,140 @@
           }
         }
       }
+    },
+    "ec-amazon": {
+      "root": "projects/ec-amazon/",
+      "sourceRoot": "projects/ec-amazon/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ec-amazon",
+            "index": "projects/ec-amazon/src/index.html",
+            "main": "projects/ec-amazon/src/main.ts",
+            "polyfills": "projects/ec-amazon/src/polyfills.ts",
+            "tsConfig": "projects/ec-amazon/tsconfig.app.json",
+            "assets": [
+              "projects/ec-amazon/src/favicon.ico",
+              "projects/ec-amazon/src/assets"
+            ],
+            "styles": [
+              "projects/ec-amazon/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ec-amazon/src/environments/environment.ts",
+                  "with": "projects/ec-amazon/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ec-amazon:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ec-amazon:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ec-amazon:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ec-amazon/src/test.ts",
+            "polyfills": "projects/ec-amazon/src/polyfills.ts",
+            "tsConfig": "projects/ec-amazon/tsconfig.spec.json",
+            "karmaConfig": "projects/ec-amazon/karma.conf.js",
+            "styles": [
+              "projects/ec-amazon/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ec-amazon/src/favicon.ico",
+              "projects/ec-amazon/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ec-amazon/tsconfig.app.json",
+              "projects/ec-amazon/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ec-amazon-e2e": {
+      "root": "projects/ec-amazon-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ec-amazon-e2e/protractor.conf.js",
+            "devServerTarget": "ec-amazon:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ec-amazon:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ec-amazon-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "amazon"
+  "defaultProject": "amazon",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
